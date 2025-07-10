@@ -219,6 +219,11 @@
       <input type="text" id="name" placeholder="Subscription Name" required>
       <input type="number" id="amount" placeholder="Monthly Cost (₹)" required>
       <input type="date" id="renewalDate" required>
+      <select id="billingCycle" required>
+        <option value="Monthly">Monthly</option>
+        <option value="Quarterly">Quarterly</option>
+        <option value="Yearly">Yearly</option>
+      </select>
       <select id="category" required>
         <option value="">Select Category</option>
         <option value="Entertainment">Entertainment</option>
@@ -252,6 +257,7 @@
           <th>Name</th>
           <th>Amount (₹)</th>
           <th>Renewal Date</th>
+          <th>Billing Cycle</th>
           <th>Category</th>
           <th>Actions</th>
         </tr>
@@ -265,6 +271,7 @@
     const nameInput = document.getElementById('name');
     const amountInput = document.getElementById('amount');
     const dateInput = document.getElementById('renewalDate');
+    const billingCycleInput = document.getElementById('billingCycle');
     const categoryInput = document.getElementById('category');
     const tableBody = document.getElementById('subscriptionTable');
     const startDate = document.getElementById('startDate');
@@ -289,6 +296,7 @@
         name: nameInput.value.trim(),
         amount: parseFloat(amountInput.value),
         date: dateInput.value,
+        billingCycle: billingCycleInput.value,
         category: categoryInput.value
       };
       let data = JSON.parse(localStorage.getItem('subscriptions')) || [];
@@ -340,6 +348,7 @@
           <td>${item.name}</td>
           <td>₹${item.amount}</td>
           <td>${item.date}</td>
+          <td>${item.billingCycle}</td>
           <td><span class="badge ${categoryClass}">${item.category}</span></td>
           <td>
             <button class="action-btn edit-btn" onclick="editSubscription(${index})">Edit</button>
@@ -356,6 +365,7 @@
       nameInput.value = item.name;
       amountInput.value = item.amount;
       dateInput.value = item.date;
+      billingCycleInput.value = item.billingCycle;
       categoryInput.value = item.category;
       editIndex = index;
     }
